@@ -1,4 +1,4 @@
-exports.inspectionLine = function (spec, my) {
+var inspectionLine = function (spec, my) {
 	var that = {};
 
 	my = my || {};
@@ -7,5 +7,10 @@ exports.inspectionLine = function (spec, my) {
 		return spec.id;
 	};
 
+	that.occupied = false;
+	that.free = true;
+
 	return that;
 };
+
+exports.inspectionLine = inspectionLine;
