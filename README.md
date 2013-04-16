@@ -8,4 +8,4 @@ Unit tests
 
 Run the unit test suite with jasmine-node 
 
-<pre>jasmine-node spec/inspection-center-tests.spec.js/</pre>
+<pre>jasmine-node spec/inspection-center-tests.spec.js</pre>
