@@ -15,7 +15,7 @@ describe("Car", function (){
 		});
 	});
 
-	describe("when created with an empty string reprenting the plate number", function () {
+	describe("when created with an empty string representing the plate number", function () {
 		var car;	
 
 		it("should be undefined", function () {
@@ -34,7 +34,8 @@ describe("Car", function (){
 		it("should expose this plate number through its interface", function () {
 			expect(car.getPlateNumber()).toBe('EFW-773');
 		});
-	})
+	});
+
 });
 
 describe("InspectionLine", function() {
@@ -55,18 +56,66 @@ describe("InspectionLine", function() {
 			expect(inspectionLine.free).toBe(true);		
 			expect(inspectionLine.free).not.toBe(false);			
 		});
+
+		it("should not expose a car through its interface", function () {
+			expect(inspectionLine.assignedCar).toBeUndefined();
+		});
+
 	});
-	/*
+
+	describe("when not occupied and a car is removed", function () {
+		it("should indicate that no car has been removed", function () {
+			expect(inspectionLine.removeCar()).toBe(false);
+		});
+	});
+	
 	describe("when a car is assigned to the line", function() {
 
-		beforeEach(function () {
+		var car = b.car({'plateNumber' : '516-CEC'});
 
-			inspectionLine.assignCar();
+		beforeEach(function () {
+			inspectionLine.assignCar(car);
 		});
 
 		it("should be occupied", function() {
-
+			expect(inspectionLine.occupied).toBe(true);
 		});
+		it("should not be free", function () {
+			expect(inspectionLine.free).toBe(false);
+		});
+		it("should expose the assigned car through its interface", function () {
+			expect(inspectionLine.assignedCar).toBe(car);
+		});
+
 	});
-*/
+
+	describe("when a car previously assigned is removed form the line", function () {
+		var car = b.car({'plateNumber' : '516-CEC'});
+		var removeResult = false;
+
+		beforeEach(function () {
+			removeResult = false;
+			inspectionLine.assignCar(car);
+			removeResult = inspectionLine.removeCar();
+		});
+
+
+		it("should not expose the car through its interface", function () {
+			expect(inspectionLine.assignedCar).toBeUndefined();
+		});
+
+		it("should be free", function () {
+			expect(inspectionLine.free).toBe(true);
+		});
+
+		it("should not be occupied", function () {
+			expect(inspectionLine.occupied).toBe(false);
+		});
+
+		it("should indicates that a car has been removed", function () {
+			expect(removeResult).toBe(true);
+		});
+
+	});
+
 });
